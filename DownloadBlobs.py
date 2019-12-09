@@ -3,7 +3,7 @@ from google.cloud import storage
 bucketName = "streamed-videos"
 
 # Get elements name
-def download(bucketName, storageClient):
+def download(bucketName):
     storageClient = storage.Client()
     bucket = storageClient.get_bucket(bucketName)
     blobs = storageClient.list_blobs(bucketName)
