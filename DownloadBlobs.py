@@ -9,7 +9,8 @@ def download(bucketName):
     blobs = storageClient.list_blobs(bucketName)
     for blob in blobs:
         print("Downloading blob:", blob.name)
-        blob.download_to_filename(fileDestinationName)
+        # download_to_filename(fileName)
+        blob.download_to_filename(blob.name)
 
     return True
 
