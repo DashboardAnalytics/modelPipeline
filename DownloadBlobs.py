@@ -10,7 +10,7 @@ def download(bucketName):
     for blob in blobs:
         print("Downloading blob:", blob.name)
         # download_to_filename(fileName)
-        blob.download_to_filename(blob.name)
+        blob.download_to_filename("Results/"+blob.name)
 
     return True
 
