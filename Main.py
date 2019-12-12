@@ -15,12 +15,12 @@ def createSubFolders(shoppingCenter, shop):
 
 def callModel(videoName):
     bashCommand = "pipenv run computer_vision video-label --nth_frame 1 "+videoName
-    process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
+    process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE, cwd="../computer_vision/")
     output, error = process.communicate()
 def parseVideoName():
     for file in os.listdir("Videos/"):
         if file.endswith(".avi"):
-            videoName = os.path.join("Videos/", file)
+            videoName = os.path.join("../modelPipeline/Videos/", file)
             videoProperties = videoName.split("_")
             # OJOOO
             videoNFrames = 5
