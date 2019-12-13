@@ -18,6 +18,7 @@ def callModel(videoName):
     process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE, cwd="../computer_vision/")
     output, error = process.communicate()
 def parseVideoName():
+   
     for file in os.listdir("Videos/"):
         if file.endswith(".avi"):
             videoName = os.path.join("../modelPipeline/Videos/", file)
@@ -35,12 +36,16 @@ def parseVideoName():
             # Modificacion de la ruta
             shopDir = "../modelPipeline/"+shopDir
             # Llamar modelo
-            callModel(videoName)
+            #callModel(videoName)
+    
             # mover resultados a carpeta
+            
             for file in os.listdir("../computer_vision/"):
                 if file.endswith(".csv"):
                     csvName = file
+                    csvName = "../computer_vision/"+csvName
                     AlterCSV.mainAlterCSV(csvName, 1, 1, shopDir, videoStart, videoNFrames, videoDate)
 
 #DownloadBlobs.download()
+
 parseVideoName()

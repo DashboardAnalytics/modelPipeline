@@ -4,7 +4,7 @@ import shutil
 from datetime import datetime, timedelta
 
 def moveCSV(csvName, shopDir):
-    shutil.move(csvName, shopDir+csvName)
+    shutil.move(csvName, shopDir+csvName.split("/")[2])
 
 def writeCSV(csvName, data):
     data.to_csv(csvName)
