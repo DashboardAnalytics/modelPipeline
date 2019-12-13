@@ -4,6 +4,9 @@
 # Videos
 *.avi
 
+# Carpeta Results
+Results/*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
