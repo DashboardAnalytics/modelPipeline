@@ -36,7 +36,7 @@ def parseVideoName():
             # Modificacion de la ruta
             shopDir = "../modelPipeline/"+shopDir
             # Llamar modelo
-            #callModel(videoName)
+            callModel(videoName)
     
             # mover resultados a carpeta
             
