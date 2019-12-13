@@ -37,7 +37,7 @@ def parseVideoName():
             # Llamar modelo
             callModel(videoName)
             # mover resultados a carpeta
-            for file in os.listdir("../computer_vision/):
+            for file in os.listdir("../computer_vision/"):
                 if file.endswith(".csv"):
                     csvName = file
                     AlterCSV.mainAlterCSV(csvName, 1, 1, shopDir, videoStart, videoNFrames, videoDate)
