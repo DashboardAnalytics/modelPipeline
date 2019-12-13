@@ -30,11 +30,14 @@ def parseVideoName():
             videoStart = videoProperties[5]
             videoStart = datetime.strptime(videoStart, '%H-%M-%S').time()
             videoStart = datetime.combine(datetime.today(), videoStart)
+            # Creacion del nombre del directorio a guardar el csv
             shopDir = createSubFolders(shoppingCenter, shop)
+            # Modificacion de la ruta
+            shopDir = "../modelPipeline/"+shopDir
             # Llamar modelo
             callModel(videoName)
             # mover resultados a carpeta
-            for file in os.listdir("../modelPipeline"):
+            for file in os.listdir("../computer_vision/):
                 if file.endswith(".csv"):
                     csvName = file
                     AlterCSV.mainAlterCSV(csvName, 1, 1, shopDir, videoStart, videoNFrames, videoDate)
