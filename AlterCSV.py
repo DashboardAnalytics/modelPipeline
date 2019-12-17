@@ -1,13 +1,14 @@
 import pandas as pd
-import os
+import os, csv
 import shutil
 from datetime import datetime, timedelta
 
-def moveCSV(csvName, shopDir):
-    shutil.move(csvName, shopDir+csvName.split("/")[2])
-
+def moveCSV(csvName, storeDir):
+    finalDir = storeDir+csvName.split("/")[2]
+    shutil.move(csvName, finalDir)
+    return finalDir
 def writeCSV(csvName, data):
-    data.to_csv(csvName)
+    data.to_csv(csvName, sep=';', index=False, quoting=csv.QUOTE_NONE, quotechar='',escapechar='')
     return True
 
 def open(csvName):
@@ -30,9 +31,10 @@ def addStoreId(data, idStore, idShopping, videoStart, videoNFrames, videoDate):
         seconds = seconds + 1/videoNFrames
     data['frame_time'] = stringTimeList
     return data
-def mainAlterCSV(csvName, idStore, idShopping, shopDir, videoStart, videoNFrames, videoDate):
-    data = open(csvName)
+def mainAlterCSV(csvName, idStore, idShopping, storeDir, videoStart, videoNFrames, videoDate):
+    data = pd.read_csv(csvName, sep=';'  , engine='python')
     data = addStoreId(data, idStore, idShopping, videoStart, videoNFrames, videoDate)
     if(writeCSV(csvName, data)):
         print("Csv "+csvName+" altered!")
-    moveCSV(csvName, shopDir)
+    finalDir = moveCSV(csvName, storeDir)
+    return finalDir

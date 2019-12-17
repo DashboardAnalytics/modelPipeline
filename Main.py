@@ -1,5 +1,6 @@
 import os
 import AlterCSV
+import DBConnection
 from datetime import datetime
 import subprocess
 #import DownloadBlobs
@@ -26,26 +27,29 @@ def parseVideoName():
             # OJOOO
             videoNFrames = 5
             shoppingCenter = videoProperties[2]
-            shop = videoProperties[3]
+            store = videoProperties[3]
             videoDate = videoProperties[4]
             videoStart = videoProperties[5]
             videoStart = datetime.strptime(videoStart, '%H-%M-%S').time()
             videoStart = datetime.combine(datetime.today(), videoStart)
             # Creacion del nombre del directorio a guardar el csv
-            shopDir = createSubFolders(shoppingCenter, shop)
+            storeDir = createSubFolders(shoppingCenter, store)
             # Modificacion de la ruta
-            shopDir = "../modelPipeline/"+shopDir
+            storeDir = "../modelPipeline/"+storeDir
             # Llamar modelo
-            callModel(videoName)
+            #callModel(videoName)
     
             # mover resultados a carpeta
             
+            # Se obtienen las ids del shopping center y de la tienda
+            shoppingID, shopID = DBConnection.GetIDS(shoppingCenter, store)
+
             for file in os.listdir("../computer_vision/"):
                 if file.endswith(".csv"):
                     csvName = file
                     csvName = "../computer_vision/"+csvName
-                    AlterCSV.mainAlterCSV(csvName, 1, 1, shopDir, videoStart, videoNFrames, videoDate)
-
+                    csvDir = AlterCSV.mainAlterCSV(csvName, shopID, shoppingID, storeDir, videoStart, videoNFrames, videoDate)
+                    DBConnection.SendToDB(csvDir)
 #DownloadBlobs.download()
 
 parseVideoName()
