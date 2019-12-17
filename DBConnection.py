@@ -48,7 +48,7 @@ def SendToDB(csvName):
                 if(row[1] != ''):
                     cursor.execute("INSERT INTO result(frame, n_people, id_shopping, id_store, frame_date, frame_time) VALUES (%s, %s, %s, %s, %s, %s)",(row[0],str(int(float(row[1]))),row[2],row[3],row[4],row[5],))
                 else:
-                    cursor.execute("INSERT INTO result(frame, id_shopping, id_store, frame_date, frame_time) VALUES (%s, %s, %s, %s, %s)",(row[0],row[2],row[3],row[4],row[5],))
+                    cursor.execute("INSERT INTO result(frame, n_people, id_shopping, id_store, frame_date, frame_time) VALUES (%s,%s, %s, %s, %s, %s)",(row[0],"0",row[2],row[3],row[4],row[5],))
         connection.commit()
         cursor.close()
         connection.close()
